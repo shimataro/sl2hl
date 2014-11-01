@@ -1,0 +1,12 @@
+#/bin/bash
+# converts symbolic links to hard links
+
+for TARGET in "$@"
+do
+	if [ ! -L "${TARGET}" ]; then
+		continue
+	fi
+
+	ORIGIN=`readlink "${TARGET}"`
+	ln -fn "${ORIGIN}" "${TARGET}" && echo "${TARGET}"
+done
